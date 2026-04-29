@@ -6,12 +6,16 @@ namespace Origamy\Dispatcher;
 
 class HttpDispatcher implements DispatcherInterface
 {
-    private int $timeoutSeconds;
+    /** @var DispatcherConfig */
+    private $config;
+    /** @var int */
+    private $timeoutSeconds;
 
     public function __construct(
-        private DispatcherConfig $config,
-        int $timeoutSeconds = 10,
+        DispatcherConfig $config,
+        int $timeoutSeconds = 10
     ) {
+        $this->config         = $config;
         $this->timeoutSeconds = $timeoutSeconds;
     }
 
@@ -61,20 +65,24 @@ class HttpDispatcher implements DispatcherInterface
 
     public function close(): void {}
 
-    private function debugf(string $format, mixed ...$args): void
+    private function debugf(string $format, ...$args): void
     {
         if ($this->config->verbose && $this->config->logger !== null) {
             $this->config->logger->logf($format, ...$args);
         }
     }
 
-    private function logf(string $format, mixed ...$args): void
+    private function logf(string $format, ...$args): void
     {
-        $this->config->logger?->logf($format, ...$args);
+        if ($this->config->logger !== null) {
+            $this->config->logger->logf($format, ...$args);
+        }
     }
 
-    private function errorf(string $format, mixed ...$args): void
+    private function errorf(string $format, ...$args): void
     {
-        $this->config->logger?->errorf($format, ...$args);
+        if ($this->config->logger !== null) {
+            $this->config->logger->errorf($format, ...$args);
+        }
     }
 }

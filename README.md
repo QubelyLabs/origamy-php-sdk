@@ -4,7 +4,7 @@
 composer require origamy/php-sdk
 ```
 
-Requires PHP 8.1+.
+Requires PHP 7.4+.
 
 ## Usage
 

@@ -25,7 +25,7 @@ class Alias implements MessageInterface
         string $messageId    = '',
         ?\DateTimeImmutable $timestamp    = null,
         ?Context            $context      = null,
-        ?Integrations       $integrations = null,
+        ?Integrations       $integrations = null
     ) {
         $this->previousId   = $previousId;
         $this->userId       = $userId;

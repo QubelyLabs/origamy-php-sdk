@@ -6,12 +6,12 @@ namespace Origamy;
 
 class StdLogger implements LoggerInterface
 {
-    public function logf(string $format, mixed ...$args): void
+    public function logf(string $format, ...$args): void
     {
         fprintf(STDERR, 'origamy INFO: ' . $format . "\n", ...$args);
     }
 
-    public function errorf(string $format, mixed ...$args): void
+    public function errorf(string $format, ...$args): void
     {
         fprintf(STDERR, 'origamy ERROR: ' . $format . "\n", ...$args);
     }

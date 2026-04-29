@@ -7,10 +7,10 @@ namespace Origamy\Queue;
 interface QueueInterface
 {
     /** Add a message to the queue. */
-    public function enqueue(mixed $msg): void;
+    public function enqueue($msg): void;
 
     /** Remove and return the next message, or null if empty. */
-    public function dequeue(): mixed;
+    public function dequeue();
 
     /** Return all remaining messages and clear the queue. */
     public function drain(): array;

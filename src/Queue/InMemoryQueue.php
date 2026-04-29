@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Origamy\Queue;
 
-/**
- * In-memory bounded queue backed by an SplQueue.
- * PHP equivalent of Go's ChannelQueue.
- */
 class InMemoryQueue implements QueueInterface
 {
-    private \SplQueue $queue;
+    /** @var \SplQueue */
+    private $queue;
     private bool $closed = false;
     private int $capacity;
 
@@ -20,7 +17,7 @@ class InMemoryQueue implements QueueInterface
         $this->queue    = new \SplQueue();
     }
 
-    public function enqueue(mixed $msg): void
+    public function enqueue($msg): void
     {
         if ($this->closed) {
             throw new ErrQueueClosed();
@@ -31,7 +28,7 @@ class InMemoryQueue implements QueueInterface
         $this->queue->enqueue($msg);
     }
 
-    public function dequeue(): mixed
+    public function dequeue()
     {
         if ($this->queue->isEmpty()) {
             return null;

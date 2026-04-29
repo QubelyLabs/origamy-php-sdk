@@ -52,7 +52,7 @@ class Config
         ?callable $retryAfter = null,
         ?\Closure $uid = null,
         ?\Closure $now = null,
-        int $maxConcurrentRequests = 0,
+        int $maxConcurrentRequests = 0
     ) {
         $this->endpoint             = $endpoint;
         $this->intervalMs           = $intervalMs;
@@ -81,14 +81,14 @@ class Config
             throw new ConfigException(
                 'negative time intervals are not supported',
                 'Interval',
-                $this->intervalMs,
+                $this->intervalMs
             );
         }
         if ($this->batchSize < 0) {
             throw new ConfigException(
                 'negative batch sizes are not supported',
                 'BatchSize',
-                $this->batchSize,
+                $this->batchSize
             );
         }
     }
@@ -124,10 +124,7 @@ class Config
         }
 
         // Always overwrite library info so it is accurate.
-        $c->defaultContext->library = new LibraryInfo(
-            name: 'origamy-php',
-            version: self::VERSION,
-        );
+        $c->defaultContext->library = new LibraryInfo('origamy-php', self::VERSION);
 
         return $c;
     }

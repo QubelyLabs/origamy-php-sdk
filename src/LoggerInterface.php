@@ -7,8 +7,8 @@ namespace Origamy;
 interface LoggerInterface
 {
     /** Log an informational message. */
-    public function logf(string $format, mixed ...$args): void;
+    public function logf(string $format, ...$args): void;
 
     /** Log an error message. */
-    public function errorf(string $format, mixed ...$args): void;
+    public function errorf(string $format, ...$args): void;
 }

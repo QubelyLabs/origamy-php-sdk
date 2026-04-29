@@ -10,15 +10,19 @@ namespace Origamy\Dispatcher;
  */
 class NoopDispatcher implements DispatcherInterface
 {
+    /** @var DispatcherConfig */
+    private $config;
     /** @var resource */
     private $output;
-    private bool $colored;
+    /** @var bool */
+    private $colored;
 
     public function __construct(
-        private DispatcherConfig $config,
-        mixed $output = null,
-        bool $colored = true,
+        DispatcherConfig $config,
+        $output = null,
+        bool $colored = true
     ) {
+        $this->config  = $config;
         $this->output  = $output ?? STDOUT;
         $this->colored = $colored;
     }
@@ -147,14 +151,16 @@ class NoopDispatcher implements DispatcherInterface
         fwrite($this->output, $s . "\n");
     }
 
-    private function printf(string $format, mixed ...$args): void
+    private function printf(string $format, ...$args): void
     {
         fprintf($this->output, $format, ...$args);
     }
 
-    private function errorf(string $format, mixed ...$args): void
+    private function errorf(string $format, ...$args): void
     {
-        $this->config->logger?->errorf($format, ...$args);
+        if ($this->config->logger !== null) {
+            $this->config->logger->errorf($format, ...$args);
+        }
     }
 
     private function highlight(string $s): string

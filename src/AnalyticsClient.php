@@ -66,7 +66,7 @@ class AnalyticsClient implements ClientInterface
 
         register_shutdown_function(function (): void {
             if (!$this->closed) {
-                try { $this->close(); } catch (\Throwable) {}
+                try { $this->close(); } catch (\Throwable $e) {}
             }
         });
     }
@@ -307,15 +307,15 @@ class AnalyticsClient implements ClientInterface
     private function makeDefaultDispatcher(): DispatcherInterface
     {
         return new HttpDispatcher(new DispatcherConfig(
-            endpoint: $this->config->endpoint,
-            writeKey: $this->writeKey,
-            version:  Config::VERSION,
-            verbose:  $this->config->verbose,
-            logger:   $this->config->logger,
+            $this->config->endpoint,
+            $this->writeKey,
+            Config::VERSION,
+            $this->config->verbose,
+            $this->config->logger
         ));
     }
 
-    private function debugf(string $format, mixed ...$args): void
+    private function debugf(string $format, ...$args): void
     {
         if ($this->config->verbose) {
             $this->config->logger->logf($format, ...$args);

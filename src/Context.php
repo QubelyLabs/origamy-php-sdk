@@ -6,12 +6,26 @@ namespace Origamy;
 
 class AppInfo implements \JsonSerializable
 {
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $version;
+    /** @var string */
+    public $build;
+    /** @var string */
+    public $namespace;
+
     public function __construct(
-        public string $name      = '',
-        public string $version   = '',
-        public string $build     = '',
-        public string $namespace = '',
-    ) {}
+        string $name      = '',
+        string $version   = '',
+        string $build     = '',
+        string $namespace = ''
+    ) {
+        $this->name      = $name;
+        $this->version   = $version;
+        $this->build     = $build;
+        $this->namespace = $namespace;
+    }
 
     public function jsonSerialize(): array
     {
@@ -26,13 +40,30 @@ class AppInfo implements \JsonSerializable
 
 class CampaignInfo implements \JsonSerializable
 {
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $source;
+    /** @var string */
+    public $medium;
+    /** @var string */
+    public $term;
+    /** @var string */
+    public $content;
+
     public function __construct(
-        public string $name    = '',
-        public string $source  = '',
-        public string $medium  = '',
-        public string $term    = '',
-        public string $content = '',
-    ) {}
+        string $name    = '',
+        string $source  = '',
+        string $medium  = '',
+        string $term    = '',
+        string $content = ''
+    ) {
+        $this->name    = $name;
+        $this->source  = $source;
+        $this->medium  = $medium;
+        $this->term    = $term;
+        $this->content = $content;
+    }
 
     public function jsonSerialize(): array
     {
@@ -48,36 +79,65 @@ class CampaignInfo implements \JsonSerializable
 
 class DeviceInfo implements \JsonSerializable
 {
+    /** @var string */
+    public $id;
+    /** @var string */
+    public $manufacturer;
+    /** @var string */
+    public $model;
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $type;
+    /** @var string */
+    public $version;
+    /** @var string */
+    public $advertisingId;
+
     public function __construct(
-        public string $id            = '',
-        public string $manufacturer  = '',
-        public string $model         = '',
-        public string $name          = '',
-        public string $type          = '',
-        public string $version       = '',
-        public string $advertisingId = '',
-    ) {}
+        string $id            = '',
+        string $manufacturer  = '',
+        string $model         = '',
+        string $name          = '',
+        string $type          = '',
+        string $version       = '',
+        string $advertisingId = ''
+    ) {
+        $this->id            = $id;
+        $this->manufacturer  = $manufacturer;
+        $this->model         = $model;
+        $this->name          = $name;
+        $this->type          = $type;
+        $this->version       = $version;
+        $this->advertisingId = $advertisingId;
+    }
 
     public function jsonSerialize(): array
     {
         return array_filter([
             'id'            => $this->id            ?: null,
             'manufacturer'  => $this->manufacturer  ?: null,
-            'model'         => $this->model          ?: null,
-            'name'          => $this->name           ?: null,
-            'type'          => $this->type           ?: null,
-            'version'       => $this->version        ?: null,
-            'advertisingId' => $this->advertisingId  ?: null,
+            'model'         => $this->model         ?: null,
+            'name'          => $this->name          ?: null,
+            'type'          => $this->type          ?: null,
+            'version'       => $this->version       ?: null,
+            'advertisingId' => $this->advertisingId ?: null,
         ], fn ($v) => $v !== null);
     }
 }
 
 class LibraryInfo implements \JsonSerializable
 {
-    public function __construct(
-        public string $name    = '',
-        public string $version = '',
-    ) {}
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $version;
+
+    public function __construct(string $name = '', string $version = '')
+    {
+        $this->name    = $name;
+        $this->version = $version;
+    }
 
     public function jsonSerialize(): array
     {
@@ -90,14 +150,34 @@ class LibraryInfo implements \JsonSerializable
 
 class LocationInfo implements \JsonSerializable
 {
+    /** @var string */
+    public $city;
+    /** @var string */
+    public $country;
+    /** @var string */
+    public $region;
+    /** @var float */
+    public $latitude;
+    /** @var float */
+    public $longitude;
+    /** @var float */
+    public $speed;
+
     public function __construct(
-        public string $city      = '',
-        public string $country   = '',
-        public string $region    = '',
-        public float  $latitude  = 0.0,
-        public float  $longitude = 0.0,
-        public float  $speed     = 0.0,
-    ) {}
+        string $city      = '',
+        string $country   = '',
+        string $region    = '',
+        float  $latitude  = 0.0,
+        float  $longitude = 0.0,
+        float  $speed     = 0.0
+    ) {
+        $this->city      = $city;
+        $this->country   = $country;
+        $this->region    = $region;
+        $this->latitude  = $latitude;
+        $this->longitude = $longitude;
+        $this->speed     = $speed;
+    }
 
     public function jsonSerialize(): array
     {
@@ -114,12 +194,26 @@ class LocationInfo implements \JsonSerializable
 
 class NetworkInfo implements \JsonSerializable
 {
+    /** @var bool */
+    public $bluetooth;
+    /** @var bool */
+    public $cellular;
+    /** @var bool */
+    public $wifi;
+    /** @var string */
+    public $carrier;
+
     public function __construct(
-        public bool   $bluetooth = false,
-        public bool   $cellular  = false,
-        public bool   $wifi      = false,
-        public string $carrier   = '',
-    ) {}
+        bool   $bluetooth = false,
+        bool   $cellular  = false,
+        bool   $wifi      = false,
+        string $carrier   = ''
+    ) {
+        $this->bluetooth = $bluetooth;
+        $this->cellular  = $cellular;
+        $this->wifi      = $wifi;
+        $this->carrier   = $carrier;
+    }
 
     public function jsonSerialize(): array
     {
@@ -134,10 +228,16 @@ class NetworkInfo implements \JsonSerializable
 
 class OSInfo implements \JsonSerializable
 {
-    public function __construct(
-        public string $name    = '',
-        public string $version = '',
-    ) {}
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $version;
+
+    public function __construct(string $name = '', string $version = '')
+    {
+        $this->name    = $name;
+        $this->version = $version;
+    }
 
     public function jsonSerialize(): array
     {
@@ -150,14 +250,34 @@ class OSInfo implements \JsonSerializable
 
 class PageInfo implements \JsonSerializable
 {
+    /** @var string */
+    public $hash;
+    /** @var string */
+    public $path;
+    /** @var string */
+    public $referrer;
+    /** @var string */
+    public $search;
+    /** @var string */
+    public $title;
+    /** @var string */
+    public $url;
+
     public function __construct(
-        public string $hash     = '',
-        public string $path     = '',
-        public string $referrer = '',
-        public string $search   = '',
-        public string $title    = '',
-        public string $url      = '',
-    ) {}
+        string $hash     = '',
+        string $path     = '',
+        string $referrer = '',
+        string $search   = '',
+        string $title    = '',
+        string $url      = ''
+    ) {
+        $this->hash     = $hash;
+        $this->path     = $path;
+        $this->referrer = $referrer;
+        $this->search   = $search;
+        $this->title    = $title;
+        $this->url      = $url;
+    }
 
     public function jsonSerialize(): array
     {
@@ -174,12 +294,26 @@ class PageInfo implements \JsonSerializable
 
 class ReferrerInfo implements \JsonSerializable
 {
+    /** @var string */
+    public $type;
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $url;
+    /** @var string */
+    public $link;
+
     public function __construct(
-        public string $type = '',
-        public string $name = '',
-        public string $url  = '',
-        public string $link = '',
-    ) {}
+        string $type = '',
+        string $name = '',
+        string $url  = '',
+        string $link = ''
+    ) {
+        $this->type = $type;
+        $this->name = $name;
+        $this->url  = $url;
+        $this->link = $link;
+    }
 
     public function jsonSerialize(): array
     {
@@ -194,11 +328,19 @@ class ReferrerInfo implements \JsonSerializable
 
 class ScreenInfo implements \JsonSerializable
 {
-    public function __construct(
-        public int $density = 0,
-        public int $width   = 0,
-        public int $height  = 0,
-    ) {}
+    /** @var int */
+    public $density;
+    /** @var int */
+    public $width;
+    /** @var int */
+    public $height;
+
+    public function __construct(int $density = 0, int $width = 0, int $height = 0)
+    {
+        $this->density = $density;
+        $this->width   = $width;
+        $this->height  = $height;
+    }
 
     public function jsonSerialize(): array
     {
@@ -216,23 +358,40 @@ class ScreenInfo implements \JsonSerializable
  */
 class Context implements \JsonSerializable
 {
-    public ?AppInfo      $app        = null;
-    public ?CampaignInfo $campaign   = null;
-    public ?DeviceInfo   $device     = null;
-    public ?LibraryInfo  $library    = null;
-    public ?LocationInfo $location   = null;
-    public ?NetworkInfo  $network    = null;
-    public ?OSInfo       $os         = null;
-    public ?PageInfo     $page       = null;
-    public ?ReferrerInfo $referrer   = null;
-    public ?ScreenInfo   $screen     = null;
-    public string        $ip         = '';
-    public bool          $direct     = false;
-    public string        $locale     = '';
-    public string        $groupId    = '';
-    public string        $timezone   = '';
-    public string        $userAgent  = '';
-    public ?Traits       $traits     = null;
+    /** @var AppInfo|null */
+    public $app      = null;
+    /** @var CampaignInfo|null */
+    public $campaign = null;
+    /** @var DeviceInfo|null */
+    public $device   = null;
+    /** @var LibraryInfo|null */
+    public $library  = null;
+    /** @var LocationInfo|null */
+    public $location = null;
+    /** @var NetworkInfo|null */
+    public $network  = null;
+    /** @var OSInfo|null */
+    public $os       = null;
+    /** @var PageInfo|null */
+    public $page     = null;
+    /** @var ReferrerInfo|null */
+    public $referrer = null;
+    /** @var ScreenInfo|null */
+    public $screen   = null;
+    /** @var string */
+    public $ip        = '';
+    /** @var bool */
+    public $direct    = false;
+    /** @var string */
+    public $locale    = '';
+    /** @var string */
+    public $groupId   = '';
+    /** @var string */
+    public $timezone  = '';
+    /** @var string */
+    public $userAgent = '';
+    /** @var Traits|null */
+    public $traits    = null;
 
     /** Extra fields are inlined into the serialized context (no "extra" key in JSON). */
     public array $extra = [];

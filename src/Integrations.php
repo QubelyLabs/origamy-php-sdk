@@ -4,41 +4,43 @@ declare(strict_types=1);
 
 namespace Origamy;
 
-/**
- * Integrations map for analytics messages.
- * Mirrors Go's Integrations map[string]interface{} with the same helper methods.
- */
 class Integrations implements \ArrayAccess, \Countable, \JsonSerializable
 {
     private array $data = [];
 
-    public function enableAll(): static
+    public function enableAll(): self
     {
         return $this->enable('all');
     }
 
-    public function disableAll(): static
+    public function disableAll(): self
     {
         return $this->disable('all');
     }
 
-    public function enable(string $name): static
+    public function enable(string $name): self
     {
         return $this->set($name, true);
     }
 
-    public function disable(string $name): static
+    public function disable(string $name): self
     {
         return $this->set($name, false);
     }
 
-    public function set(string $name, mixed $value): static
+    /**
+     * @param mixed $value
+     */
+    public function set(string $name, $value): self
     {
         $this->data[$name] = $value;
         return $this;
     }
 
-    public function get(string $name): mixed
+    /**
+     * @return mixed
+     */
+    public function get(string $name)
     {
         return $this->data[$name] ?? null;
     }
@@ -58,22 +60,28 @@ class Integrations implements \ArrayAccess, \Countable, \JsonSerializable
         return count($this->data);
     }
 
-    public function offsetExists(mixed $offset): bool
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
 
-    public function offsetGet(mixed $offset): mixed
+    /**
+     * @return mixed
+     */
+    public function offsetGet($offset)
     {
         return $this->data[$offset] ?? null;
     }
 
-    public function offsetSet(mixed $offset, mixed $value): void
+    /**
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         $this->data[$offset] = $value;
     }
 
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset($offset): void
     {
         unset($this->data[$offset]);
     }

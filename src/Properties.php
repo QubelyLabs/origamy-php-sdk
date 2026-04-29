@@ -4,126 +4,128 @@ declare(strict_types=1);
 
 namespace Origamy;
 
-/**
- * Properties map for analytics messages.
- * Mirrors Go's Properties map[string]interface{} with the same helper methods.
- */
 class Properties implements \ArrayAccess, \Countable, \JsonSerializable
 {
     private array $data = [];
 
-    public function setRevenue(float $revenue): static
+    public function setRevenue(float $revenue): self
     {
         return $this->set('revenue', $revenue);
     }
 
-    public function setCurrency(string $currency): static
+    public function setCurrency(string $currency): self
     {
         return $this->set('currency', $currency);
     }
 
-    public function setValue(float $value): static
+    public function setValue(float $value): self
     {
         return $this->set('value', $value);
     }
 
-    public function setPath(string $path): static
+    public function setPath(string $path): self
     {
         return $this->set('path', $path);
     }
 
-    public function setReferrer(string $referrer): static
+    public function setReferrer(string $referrer): self
     {
         return $this->set('referrer', $referrer);
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         return $this->set('title', $title);
     }
 
-    public function setUrl(string $url): static
+    public function setUrl(string $url): self
     {
         return $this->set('url', $url);
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         return $this->set('name', $name);
     }
 
-    public function setCategory(string $category): static
+    public function setCategory(string $category): self
     {
         return $this->set('category', $category);
     }
 
-    public function setSku(string $sku): static
+    public function setSku(string $sku): self
     {
         return $this->set('sku', $sku);
     }
 
-    public function setPrice(float $price): static
+    public function setPrice(float $price): self
     {
         return $this->set('price', $price);
     }
 
-    public function setProductId(string $id): static
+    public function setProductId(string $id): self
     {
         return $this->set('id', $id);
     }
 
-    public function setOrderId(string $id): static
+    public function setOrderId(string $id): self
     {
         return $this->set('orderId', $id);
     }
 
-    public function setTotal(float $total): static
+    public function setTotal(float $total): self
     {
         return $this->set('total', $total);
     }
 
-    public function setSubtotal(float $subtotal): static
+    public function setSubtotal(float $subtotal): self
     {
         return $this->set('subtotal', $subtotal);
     }
 
-    public function setShipping(float $shipping): static
+    public function setShipping(float $shipping): self
     {
         return $this->set('shipping', $shipping);
     }
 
-    public function setTax(float $tax): static
+    public function setTax(float $tax): self
     {
         return $this->set('tax', $tax);
     }
 
-    public function setDiscount(float $discount): static
+    public function setDiscount(float $discount): self
     {
         return $this->set('discount', $discount);
     }
 
-    public function setCoupon(string $coupon): static
+    public function setCoupon(string $coupon): self
     {
         return $this->set('coupon', $coupon);
     }
 
-    public function setProducts(Product ...$products): static
+    public function setProducts(Product ...$products): self
     {
         return $this->set('products', $products);
     }
 
-    public function setRepeat(bool $repeat): static
+    public function setRepeat(bool $repeat): self
     {
         return $this->set('repeat', $repeat);
     }
 
-    public function set(string $name, mixed $value): static
+    /**
+     * @param mixed $value
+     */
+    public function set(string $name, $value): self
     {
         $this->data[$name] = $value;
         return $this;
     }
 
-    public function get(string $name): mixed
+    /**
+     * @return mixed
+     */
+    public function get(string $name)
     {
         return $this->data[$name] ?? null;
     }
@@ -143,36 +145,55 @@ class Properties implements \ArrayAccess, \Countable, \JsonSerializable
         return count($this->data);
     }
 
-    public function offsetExists(mixed $offset): bool
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
 
-    public function offsetGet(mixed $offset): mixed
+    /**
+     * @return mixed
+     */
+    public function offsetGet($offset)
     {
         return $this->data[$offset] ?? null;
     }
 
-    public function offsetSet(mixed $offset, mixed $value): void
+    /**
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         $this->data[$offset] = $value;
     }
 
-    public function offsetUnset(mixed $offset): void
+    public function offsetUnset($offset): void
     {
         unset($this->data[$offset]);
     }
 }
 
-/** Represents a product in the E-commerce API. */
 class Product implements \JsonSerializable
 {
+    /** @var string */
+    public $id;
+    /** @var string */
+    public $sku;
+    /** @var string */
+    public $name;
+    /** @var float */
+    public $price;
+
     public function __construct(
-        public string $id    = '',
-        public string $sku   = '',
-        public string $name  = '',
-        public float  $price = 0.0,
-    ) {}
+        string $id    = '',
+        string $sku   = '',
+        string $name  = '',
+        float  $price = 0.0
+    ) {
+        $this->id    = $id;
+        $this->sku   = $sku;
+        $this->name  = $name;
+        $this->price = $price;
+    }
 
     public function jsonSerialize(): array
     {

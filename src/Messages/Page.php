@@ -30,7 +30,7 @@ class Page implements MessageInterface
         ?\DateTimeImmutable $timestamp    = null,
         ?Context            $context      = null,
         ?Properties         $properties   = null,
-        ?Integrations       $integrations = null,
+        ?Integrations       $integrations = null
     ) {
         $this->userId       = $userId;
         $this->anonymousId  = $anonymousId;

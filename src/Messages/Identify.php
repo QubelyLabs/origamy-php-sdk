@@ -28,7 +28,7 @@ class Identify implements MessageInterface
         ?\DateTimeImmutable  $timestamp    = null,
         ?Context             $context      = null,
         ?OrigamyTraits       $traits       = null,
-        ?Integrations        $integrations = null,
+        ?Integrations        $integrations = null
     ) {
         $this->userId       = $userId;
         $this->anonymousId  = $anonymousId;

@@ -30,7 +30,7 @@ class Group implements MessageInterface
         ?\DateTimeImmutable  $timestamp    = null,
         ?Context             $context      = null,
         ?OrigamyTraits       $traits       = null,
-        ?Integrations        $integrations = null,
+        ?Integrations        $integrations = null
     ) {
         $this->groupId      = $groupId;
         $this->userId       = $userId;

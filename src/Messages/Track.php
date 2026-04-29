@@ -30,7 +30,7 @@ class Track implements MessageInterface
         ?\DateTimeImmutable $timestamp    = null,
         ?Context            $context      = null,
         ?Properties         $properties   = null,
-        ?Integrations       $integrations = null,
+        ?Integrations       $integrations = null
     ) {
         $this->event        = $event;
         $this->userId       = $userId;
