@@ -173,7 +173,7 @@ class AnalyticsEventsTest extends TestCase
 
     public function testDefaultEndpointIsOrigamy(): void
     {
-        $this->assertSame('https://api.origamy.com', Config::DEFAULT_ENDPOINT);
+        $this->assertSame('https://events.origamy.io', Config::DEFAULT_ENDPOINT);
     }
 
     public function testSentAtFormat(): void

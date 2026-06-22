@@ -352,7 +352,7 @@ PHP is single-threaded, so there is no background goroutine or interval timer. M
 
 | Setting         | Default                   |
 | --------------- | ------------------------- |
-| Endpoint        | `https://api.origamy.com` |
+| Endpoint        | `https://events.origamy.io` |
 | Batch size      | 250 messages              |
 | Queue capacity  | 100 messages              |
 | Request timeout | 10 seconds                |
