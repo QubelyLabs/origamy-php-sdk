@@ -168,7 +168,6 @@ class AnalyticsEventsTest extends TestCase
         $lib = $event['context']['library'] ?? null;
         $this->assertNotNull($lib, 'Event context must have library');
         $this->assertSame('origamy-php', $lib['name']);
-        $this->assertSame(Config::VERSION, $lib['version']);
     }
 
     public function testDefaultEndpointIsOrigamy(): void

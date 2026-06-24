@@ -43,6 +43,10 @@ class AnalyticsTest extends TestCase
         $path = __DIR__ . '/fixtures/' . $name;
         $json = file_get_contents($path);
         $this->assertIsString($json, "Fixture file not found: $name");
+        // The library version is stored as a __VERSION__ placeholder and
+        // substituted with the current version, so a version bump never
+        // requires re-recording fixtures.
+        $json = str_replace('__VERSION__', Config::VERSION, $json);
         return json_decode($json, true);
     }
 

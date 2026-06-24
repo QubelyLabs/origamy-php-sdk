@@ -10,7 +10,7 @@ use Origamy\Queue\QueueInterface;
 
 class Config
 {
-    public const VERSION          = '3.0.0';
+    public const VERSION          = '0.0.0';
     public const DEFAULT_ENDPOINT = 'https://events.origamy.io';
     public const DEFAULT_INTERVAL_MS = 5_000;
     public const DEFAULT_BATCH_SIZE  = 250;
@@ -117,10 +117,10 @@ class Config
             $c->defaultContext = new Context();
         }
         if ($c->uid === null) {
-            $c->uid = static fn () => \Ramsey\Uuid\Uuid::uuid4()->toString();
+            $c->uid = static fn() => \Ramsey\Uuid\Uuid::uuid4()->toString();
         }
         if ($c->now === null) {
-            $c->now = static fn (): \DateTimeImmutable => new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+            $c->now = static fn(): \DateTimeImmutable => new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
         }
 
         // Always overwrite library info so it is accurate.

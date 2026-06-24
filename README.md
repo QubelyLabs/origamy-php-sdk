@@ -245,6 +245,12 @@ if ($err !== null) {
 
 ## Publishing
 
+Published via [Packagist](https://packagist.org) from the Git repository — there is
+no build step; `src/` is the shipped code. Dev-only paths (`tests/`, `integration/`,
+`phpunit.xml`, …) are excluded from the dist archives `composer require` downloads
+via [.gitattributes](.gitattributes) `export-ignore`, so consumers don't pull the
+whole repo.
+
 ### Prerequisites
 
 - Write access to the `origamy/php-sdk` package on [Packagist](https://packagist.org)
@@ -255,7 +261,7 @@ if ($err !== null) {
 **1. Update the version constant** in [src/Config.php](src/Config.php):
 
 ```php
-public const VERSION = '3.0.1';
+public const VERSION = '0.0.0';
 ```
 
 **2. Run tests** to confirm everything passes:
@@ -268,8 +274,8 @@ composer test
 
 ```bash
 git add .
-git commit -m "release: v3.0.1"
-git tag v3.0.1
+git commit -m "release: v0.0.0"
+git tag v0.0.0
 git push origin main --tags
 ```
 
@@ -280,13 +286,13 @@ Packagist picks up new tags automatically if a webhook is configured. Otherwise 
 ```bash
 curl -XPOST -H 'content-type:application/json' \
   "https://packagist.org/api/update-package?username=YOUR_USER&apiToken=YOUR_TOKEN" \
-  -d '{"repository":{"url":"https://github.com/qubely/origamy-php-sdk"}}'
+  -d '{"repository":{"url":"https://github.com/QubelyLabs/origamy-php-sdk"}}'
 ```
 
 Once the tag is published, the new version is available via:
 
 ```bash
-composer require origamy/php-sdk:^3.0.1
+composer require origamy/php-sdk:^0.0.0
 ```
 
 ### Useful Commands
@@ -335,28 +341,28 @@ PHP is single-threaded, so there is no background goroutine or interval timer. M
 
 ## Available Configuration
 
-| Option          | Type                       | Description                                       |
-| --------------- | -------------------------- | ------------------------------------------------- |
-| `endpoint`      | `string`                   | API endpoint URL                                  |
-| `batchSize`     | `int`                      | Max messages per batch                            |
-| `dispatcher`    | `DispatcherInterface`      | Custom dispatcher (HTTP, Noop, gRPC, etc.)        |
-| `queue`         | `QueueInterface`           | Custom message queue                              |
-| `queueCapacity` | `int`                      | Capacity for the default in-memory queue          |
-| `verbose`       | `bool`                     | Enable verbose logging                            |
-| `logger`        | `LoggerInterface`          | Custom logger                                     |
-| `callback`      | `CallbackInterface`        | Success/failure delivery callbacks                |
-| `defaultContext`| `Context`                  | Default context merged into every message         |
-| `retryAfter`    | `callable(int): int`       | Retry delay in ms; receives the attempt index     |
+| Option           | Type                  | Description                                   |
+| ---------------- | --------------------- | --------------------------------------------- |
+| `endpoint`       | `string`              | API endpoint URL                              |
+| `batchSize`      | `int`                 | Max messages per batch                        |
+| `dispatcher`     | `DispatcherInterface` | Custom dispatcher (HTTP, Noop, gRPC, etc.)    |
+| `queue`          | `QueueInterface`      | Custom message queue                          |
+| `queueCapacity`  | `int`                 | Capacity for the default in-memory queue      |
+| `verbose`        | `bool`                | Enable verbose logging                        |
+| `logger`         | `LoggerInterface`     | Custom logger                                 |
+| `callback`       | `CallbackInterface`   | Success/failure delivery callbacks            |
+| `defaultContext` | `Context`             | Default context merged into every message     |
+| `retryAfter`     | `callable(int): int`  | Retry delay in ms; receives the attempt index |
 
 ## Defaults
 
-| Setting         | Default                   |
-| --------------- | ------------------------- |
+| Setting         | Default                     |
+| --------------- | --------------------------- |
 | Endpoint        | `https://events.origamy.io` |
-| Batch size      | 250 messages              |
-| Queue capacity  | 100 messages              |
-| Request timeout | 10 seconds                |
-| Retry attempts  | 10 (exponential backoff)  |
+| Batch size      | 250 messages                |
+| Queue capacity  | 100 messages                |
+| Request timeout | 10 seconds                  |
+| Retry attempts  | 10 (exponential backoff)    |
 
 ## License
 

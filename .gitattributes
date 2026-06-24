@@ -1,0 +1,11 @@
+# Keep the published Composer package lean: exclude dev-only files from the
+# dist archives that `composer require` downloads (GitHub archive endpoints
+# honour export-ignore). src/, composer.json, LICENSE.md and README.md are
+# still shipped.
+/tests                  export-ignore
+/integration            export-ignore
+/phpunit.xml            export-ignore
+/.phpunit.result.cache  export-ignore
+/.gitignore             export-ignore
+/.gitattributes         export-ignore
+/composer.lock          export-ignore
