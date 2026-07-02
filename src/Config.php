@@ -11,7 +11,7 @@ use Origamy\Queue\QueueInterface;
 class Config
 {
     public const VERSION          = '3.0.0';
-    public const DEFAULT_ENDPOINT = 'https://api.origamy.com';
+    public const DEFAULT_ENDPOINT = 'https://events.origamy.io';
     public const DEFAULT_INTERVAL_MS = 5_000;
     public const DEFAULT_BATCH_SIZE  = 250;
 

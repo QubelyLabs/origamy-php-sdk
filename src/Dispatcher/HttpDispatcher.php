@@ -17,7 +17,7 @@ class HttpDispatcher implements DispatcherInterface
 
     public function send(string $payload): void
     {
-        $endpoint = rtrim($this->config->endpoint ?: 'https://api.origamy.com', '/');
+        $endpoint = rtrim($this->config->endpoint ?: 'https://events.origamy.io', '/');
         $url      = $endpoint . '/v1/batch';
         $version  = $this->config->version ?: '3.0.0';
 
