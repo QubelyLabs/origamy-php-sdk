@@ -292,7 +292,7 @@ composer require origamy/php-sdk:^3.0.1
 ### Useful Commands
 
 ```bash
-composer install          # Install dependencies
+composer install          # Install dependencies (vendor/ is git-ignored; it was committed until 2026-09)
 composer test             # Run the full test suite
 ./vendor/bin/phpunit      # Run tests directly
 ./vendor/bin/phpunit --group http   # Run HTTP integration tests only
