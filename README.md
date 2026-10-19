@@ -243,6 +243,44 @@ if ($err !== null) {
 }
 ```
 
+### List Segment Members
+
+A list (manual) segment can be filled by naming people. `SegmentsClient` takes a
+**secret key** (`sk_`) — public keys are refused — and its calls are synchronous:
+
+```php
+use Origamy\Exceptions\SegmentException;
+use Origamy\SegmentsClient;
+
+$segments = new SegmentsClient(getenv('ORIGAMY_SECRET_KEY'));
+
+try {
+    $result = $segments->addMembers(42, [
+        ['email' => 'jane@example.com', 'traits' => ['first_name' => 'Jane']],
+        ['phone' => '0803 123 4567'],
+        ['userId' => 'user-42'],
+    ], phoneRegion: 'NG');
+    echo $result->added, ' added; rejected: ', json_encode($result->rejected), "\n";
+
+    $segments->removeMembers(42, [['email' => 'old@example.com']]);
+} catch (SegmentException $e) {
+    if ($e->errorCode === 'segment_not_list') {
+        // the segment is computed from conditions and can't take people by name
+    }
+    throw $e;
+}
+```
+
+Each added person goes through the event pipeline as an identify: someone new
+becomes a profile, and segment-entered journeys start, normally within seconds.
+Removals apply before the call returns and start segment-exited journeys.
+
+Lists longer than 1000 rows are sent in several requests and their results
+combined; each rejected row's `index` is its position in the array you passed.
+If a later request fails, `$e->result` holds what the earlier ones did. Requests
+that are rate limited (429) or find the service unavailable (503) are retried up
+to 3 times. The constructor takes `endpoint`, `timeoutSeconds` and `retryAfter`.
+
 ## Publishing
 
 ### Prerequisites
